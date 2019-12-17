@@ -1,3 +1,29 @@
+Modified Version For PeerSocial
+=====================================
+
+
+This Version has been modified to use GUNdb as for file storage *NOT YET THO*
+
+
+`
+git clone https://github.com/PeerSocial-io/core.git c9sdk-ps
+cd c9sdk-ps
+scripts/install-sdk.sh
+
+`
+
+`
+scripts/makestandalone.sh
+cp -a plugins/c9.vfs.client build/standalone/modules/plugins/.
+mkdir lib
+cp -a node_modules/rusha lib/.
+cp -a node_modules/tern lib/.
+`
+
+`node static.js` => http://localhost:8383/
+
+
+
 Cloud9 3.0 SDK for Plugin Development
 ======================================
 
