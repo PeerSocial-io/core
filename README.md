@@ -10,17 +10,42 @@ git clone https://github.com/PeerSocial-io/core.git c9sdk-ps
 cd c9sdk-ps
 scripts/install-sdk.sh
 
-```
 
-```
-scripts/makestandalone.sh
-cp -a plugins/c9.vfs.client build/standalone/modules/plugins/.
 mkdir lib
 cp -a node_modules/rusha lib/.
 cp -a node_modules/tern lib/.
 ```
 
-`node static.js` => http://localhost:8383/
+
+bundeling up standalone
+```
+
+
+
+scripts/makestandalone.sh
+cp -a plugins/c9.vfs.client build/standalone/modules/plugins/.
+mkdir ./gun-bundle
+mkdir ./gun-bundle/build
+cp -a ./build/standalone ./gun-bundle/build/.
+cp -a ./configs ./gun-bundle/.
+cp -a ./lib gun-bundle/.
+cp -a ./plugins ./gun-bundle/.
+cp index.html ./gun-bundle/.
+cp c9_index.js ./gun-bundle/.
+cp static.js ./gun-bundle/.
+
+
+
+```
+
+this require express
+
+```
+cd gun-bundle
+
+node static.js
+```
+[http://localhost:8383/](http://localhost:8383/)
 
 
 
