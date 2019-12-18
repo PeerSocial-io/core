@@ -1,10 +1,37 @@
+var selfsigned = require('selfsigned'); //require('selfsigned');
 
+
+var port = process.env.PORT || 8383;
+var https = require('https');
 var http = require('http');
 var express = require('express');
-
+// var Gun = require('gun');
+// require('gun/axe');
 
 var app = express();
 app.use(express.static(__dirname + "/"));
 
-http.createServer(app)
-        .listen(8383);
+// app.use(Gun.serve);
+
+
+var server;
+
+if (selfsigned){
+var attrs = null; //[{ name: 'commonName', value: '127.0.0.' }];
+var pems = selfsigned.generate(attrs, { days: 365 });
+
+// we will pass our 'app' to 'https' server
+
+    server = https.createServer({
+            key: pems.private,
+            cert: pems.cert
+        }, app)
+        .listen(port);
+}else{
+    server = http.createServer(app)
+        .listen(port);
+}
+
+// var gun = Gun({ file: 'data', web: server });
+
+console.log('Server started on port ' + port + '');

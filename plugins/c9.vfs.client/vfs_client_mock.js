@@ -37,10 +37,17 @@ define(function(require, exports, module) {
             if (options.storage != false) {
                 // Try loading data from localStorage
                 try {
-                    fsData = JSON.parse(localStorage.fsData);
+                    gun.get("peersocial-c9-test").map().once(function(data){
+                        //console.log(data)
+                        fsData = JSON.parse(data);
+                    })
+                    //fsData = JSON.parse(localStorage.fsData);
                 } catch (e) {}
                 window.addEventListener("beforeunload", function(e) {
-                    localStorage.fsData = JSON.stringify(fsData);
+                    gun.get("peersocial-c9-test").set(JSON.stringify(fsData));
+                    console.log("saved data")
+                    //localStorage.fsData = JSON.stringify(fsData);
+                    return "";
                 });
             }
         }
