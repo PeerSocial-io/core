@@ -1,10 +1,7 @@
 #!/bin/bash -e
 
 ##clear old build
-
 rm -rf ./gun-bundle
-rm -rf ./build/standalone
-
 
 ##bundle standalone 
 scripts/makestandalone.sh
