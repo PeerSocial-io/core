@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="./plugins/c9.ide.layout.classic/loading-flat.css" />
     <div id="loadingcontainer" class="">
         <div id="loadingide">
-            <div class="cool-message">Loading offline ide example</div>
+            <div class="cool-message">Loading Gun, PoW PoW PoW!</div>
             <div class="status" style="display:none"><div class="spinner"></div></div>
             
             <div id="content" class="loading-progress">
@@ -27,9 +27,13 @@
     <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gun/sea.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gun/lib/webrtc.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gun/lib/unset.js"></script>
     <script>
         
-        var gun = Gun(['https://peersocial.herokuapp.com/gun', 'https://gunjs.herokuapp.com/gun']);
+        var gun = Gun(
+            //['https://gunjs.herokuapp.com/gun']
+            ['https://www.peersocial.io/gun']
+            );
     
         window.gun = gun;
         

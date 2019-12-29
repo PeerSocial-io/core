@@ -53,7 +53,8 @@ function offlineConfig(plugins) {
     plugins = plugins.filter(function(p) {
         var packagePath = typeof p == "string" ? p : p.packagePath;
         if (/\/c9.ide.run/.test(packagePath)) return false;
-        if (/\/c9.ide.collab/.test(packagePath)) return false;
+        if (/\/c9.ide.collab/.test(packagePath)) 
+            return false;
         if (/\/c9.ide.installer/.test(packagePath)) return false;
         if (/\/c9.vfs.client/.test(packagePath)) return false;
         if (/\/c9.ide.scm/.test(packagePath)) return false;
@@ -107,15 +108,25 @@ var plugins;
 require(["lib/architect/architect", "configs/ide/default"], function(architect, defaultConfig) {
     plugins = defaultConfig({
         staticPrefix: href,
-        workspaceDir: "/",
-        workspaceId: "/",
-        workspaceName: "/",
-        home: "/",
+        workspaceDir: "/workspace",
+        workspaceId: "/workspace",
+        workspaceName: "/workspace",
+        home: "/home",
         platform: "linux",
         installPath: "/",
         manifest: {},
         project: {},
-        user: {},
+        user: {
+                id: Date.now(),
+                name: "Anonymous",
+                fullname: "Anonymous",
+                email: "Anonymous",
+                date_add: "Anonymous",
+                active: "Anonymous",
+                c9version: "Anonymous",
+                premium: "Anonymous",
+                region: "Anonymous",
+            },
         standalone: true,
         previewUrl: "./offline.preview/index.html?u=",
         dashboardUrl: "",
@@ -180,6 +191,7 @@ require(["lib/architect/architect", "configs/ide/default"], function(architect, 
 
         // For Development only
         function done() {
+            window.c9App = app;
             var vfs = app.services.vfs;
             var c9 = app.services.c9;
             var settings = app.services.settings;
@@ -202,7 +214,17 @@ require(["lib/architect/architect", "configs/ide/default"], function(architect, 
                     if (!layout || layout.hasTheme) return fn();
                     layout.once("eachTheme", fn);
                 };
-                waitSettings(waitTheme.bind(null, window.hideLoader));
+                
+                var c = waitTheme.bind(null, window.hideLoader);
+                var b = waitSettings.bind(null, c);
+                var a = waitVfs.bind(null, b);
+                
+                //show(title, description, onChoose, onCancel, options)
+                // app.services["dialog.login"].show("GUN Login","Use Gun login.", function(){
+                //     console.log(arguments)
+                // })
+                
+                a();
             }
         }
     }, function loadError(mod) {
